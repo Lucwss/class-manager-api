@@ -9,7 +9,10 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "fastapi[all] (>=0.115.11,<0.116.0)",
-    "motor[all] (>=3.7.0,<4.0.0)"
+    "motor[all] (>=3.7.0,<4.0.0)",
+    "pydantic[all] (>=2.10.6,<3.0.0)",
+    "pyjwt (>=2.10.1,<3.0.0)",
+    "passlib (>=1.7.4,<2.0.0)"
 ]
 
 

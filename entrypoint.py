@@ -4,12 +4,14 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from infra.databases.mongodatabase import MongoDatabase
+from web.app.students import students_router
 from web.auth.auth import auth_router
 
 api_version = '/api/v1'
 
 app = FastAPI(
-    title="AAS Data API",
+    title="Class Manager API",
     redirect_slashes=False,
 )
 
@@ -22,6 +24,8 @@ app.add_middleware(
 )
 
 app.include_router(auth_router, prefix=api_version)
+app.include_router(students_router, prefix=api_version)
+app.add_event_handler("startup", MongoDatabase.connect)
 
 
 

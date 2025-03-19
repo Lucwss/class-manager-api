@@ -1,0 +1,18 @@
+services:
+  class-manager-database:
+    image: mongo:7.0.7
+    container_name: class-manager-database
+    volumes:
+      - /var/class-manager:/data/db
+    env_file:
+      - ../../.env.development
+    ports:
+      - "27017:27017"
+    networks:
+      - class-manager-network
+    restart: always
+
+
+networks:
+  class-manager-network:
+    name: class-manager-network

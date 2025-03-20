@@ -1,4 +1,19 @@
 services:
+  class-manager-api:
+    image: class-manager-api:1.0.0-development
+    container_name: class-manager-api
+    env_file:
+      - ../../.env.development
+    networks:
+      - class-manager-network
+    restart: always
+    depends_on:
+      - class-manager-database
+    ports:
+      - "8000:8000"
+    entrypoint: ["/bin/bash", "start-development.sh"]
+
+
   class-manager-database:
     image: mongo:7.0.7
     container_name: class-manager-database

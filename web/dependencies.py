@@ -12,6 +12,7 @@ from application.usecases.create_student import CreateStudentUseCase
 from application.usecases.create_user import CreateUserUseCase
 from application.usecases.get_schedule_summary import GetScheduleUseCase
 from application.usecases.sign_in import SignInUseCase
+from application.usecases.users_me import UsersMeUseCase
 
 
 def student_repository():
@@ -65,6 +66,16 @@ def get_token(
     """
 
     return token
+
+def get_current_user_use_case(
+        repository: Annotated[UserRepository, Depends(user_repository)],
+        encoder: Annotated[BcryptAdapter, Depends(jwt_encoder)]
+):
+    """
+    function that injects the dependencies for GetCurrentUserUseCase
+    """
+
+    return UsersMeUseCase(repository, encoder)
 
 def create_student_use_case(
         repository: Annotated[StudentRepository, Depends(student_repository)],

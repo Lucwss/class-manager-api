@@ -8,6 +8,7 @@ from infra.databases.mongodatabase import MongoDatabase
 from web.app.lecturers import lecturers_router
 from web.app.schedules import schedules_router
 from web.app.students import students_router
+from web.app.users import users_router
 from web.auth.auth import auth_router
 
 api_version = '/api/v1'
@@ -28,6 +29,7 @@ app.add_middleware(
 app.include_router(auth_router, prefix=api_version)
 app.include_router(lecturers_router, prefix=api_version)
 app.include_router(schedules_router, prefix=api_version)
+app.include_router(users_router, prefix=api_version)
 app.include_router(students_router, prefix=api_version)
 app.add_event_handler("startup", MongoDatabase.connect)
 

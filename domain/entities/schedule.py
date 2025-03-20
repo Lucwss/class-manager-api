@@ -1,10 +1,10 @@
 from datetime import datetime
-from typing import Optional
 
-from pydantic import BaseModel, EmailStr, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict
 from bson.objectid import ObjectId
 
-from domain.enums import Role
+from domain.entities.lecturer import LecturerOutput
+from domain.entities.student import StudentOutput
 
 
 class ScheduleInput(BaseModel):
@@ -32,6 +32,8 @@ class ScheduleOutput(ScheduleInput):
     id: ObjectId = Field(alias="_id")
     created_at: datetime
     updated_at: datetime
+    lecturer: LecturerOutput
+    student: StudentOutput
 
     model_config = ConfigDict(
         arbitrary_types_allowed=True,

@@ -8,8 +8,7 @@ from adapters.repositories.student_repository import StudentRepository
 from application.usecases.create_lecturer import CreateLecturerUseCase
 from application.usecases.create_schedule import CreateScheduleUseCase
 from application.usecases.create_student import CreateStudentUseCase
-
-
+from application.usecases.get_schedule_summary import GetScheduleUseCase
 
 
 def student_repository():
@@ -67,3 +66,12 @@ def create_schedule_use_case(
     """
 
     return CreateScheduleUseCase(repository)
+
+def get_schedule_summary_use_case(
+        repository: Annotated[ScheduleRepository, Depends(schedule_repository)],
+) -> GetScheduleUseCase:
+    """
+    function that injects the dependencies for GetScheduleUseCase
+    """
+
+    return GetScheduleUseCase(repository)

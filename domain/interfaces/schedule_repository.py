@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Any
 
 from domain.entities.schedule import ScheduleOutput, ScheduleInput
 
@@ -17,7 +18,7 @@ class IScheduleRepository(ABC):
         raise NotImplemented()
 
     @abstractmethod
-    async def find_all(self, page: int, page_size: int):
+    async def find_all(self, page: int, page_size: int, search: Any = None):
         """
         This abstract method is responsible for finding all schedules on the database.
         :return:

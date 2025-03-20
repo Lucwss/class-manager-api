@@ -17,7 +17,7 @@ class UserOutput(UserInput):
     """
     User model representing a user in the application with additional fields for output.
     """
-    id: ObjectId
+    id: ObjectId = Field(alias="_id")
     created_at: datetime
     updated_at: datetime
 

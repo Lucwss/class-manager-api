@@ -5,10 +5,13 @@ from adapters.libs.bcrypt import BcryptAdapter
 from adapters.repositories.lecturer_repository import LecturerRepository
 from adapters.repositories.schedule_repository import ScheduleRepository
 from adapters.repositories.student_repository import StudentRepository
+from adapters.repositories.user_repository import UserRepository
 from application.usecases.create_lecturer import CreateLecturerUseCase
 from application.usecases.create_schedule import CreateScheduleUseCase
 from application.usecases.create_student import CreateStudentUseCase
+from application.usecases.create_user import CreateUserUseCase
 from application.usecases.get_schedule_summary import GetScheduleUseCase
+from application.usecases.sign_in import SignInUseCase
 
 
 def student_repository():
@@ -17,6 +20,14 @@ def student_repository():
     """
 
     return StudentRepository()
+
+def user_repository():
+    """
+    function that injects the dependencies for UserRepository
+    """
+
+    return UserRepository()
+
 
 def lecturer_repository():
     """
@@ -31,6 +42,13 @@ def schedule_repository():
     """
 
     return ScheduleRepository()
+
+def sign_in_use_case(repository: Annotated[UserRepository, Depends(user_repository)]) -> SignInUseCase:
+    """
+    function that injects the dependencies for SignInUseCase
+    """
+
+    return SignInUseCase(repository)
 
 def jwt_encoder() -> BcryptAdapter:
     """
@@ -48,6 +66,16 @@ def create_student_use_case(
     """
 
     return CreateStudentUseCase(repository, encoder)
+
+def create_user_use_case(
+        repository: Annotated[UserRepository, Depends(user_repository)],
+        encoder: Annotated[BcryptAdapter, Depends(jwt_encoder)],
+) -> CreateUserUseCase:
+    """
+    function that injects the dependencies for CreateUserUseCase
+    """
+
+    return CreateUserUseCase(repository, encoder)
 
 def create_lecturer_use_case(
         repository: Annotated[LecturerRepository, Depends(lecturer_repository)],

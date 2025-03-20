@@ -5,11 +5,14 @@ from fastapi.responses import JSONResponse
 
 from application.usecases.create_lecturer import CreateLecturerUseCase
 from domain.entities.lecturer import LecturerInput
-from web.dependencies import create_lecturer_use_case
+from web.dependencies import create_lecturer_use_case, get_token
 
 lecturers_router = APIRouter(
     prefix="/lecturers",
     tags=["Lecturers"],
+    dependencies=[
+        Depends(get_token)
+    ]
 )
 
 @lecturers_router.post('/', summary='Route for creation of a lecturer.')

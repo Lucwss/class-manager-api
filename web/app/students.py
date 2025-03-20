@@ -5,11 +5,14 @@ from fastapi.responses import JSONResponse
 
 from application.usecases.create_student import CreateStudentUseCase
 from domain.entities.student import StudentInput
-from web.dependencies import create_student_use_case
+from web.dependencies import create_student_use_case, get_token
 
 students_router = APIRouter(
     prefix="/students",
     tags=["Students"],
+    dependencies=[
+        Depends(get_token)
+    ]
 )
 
 @students_router.post('/', summary='Route for creation of a student.')

@@ -6,11 +6,14 @@ from fastapi.responses import JSONResponse
 from application.usecases.create_schedule import CreateScheduleUseCase
 from application.usecases.get_schedule_summary import GetScheduleUseCase
 from domain.entities.schedule import ScheduleInput
-from web.dependencies import create_schedule_use_case, get_schedule_summary_use_case
+from web.dependencies import create_schedule_use_case, get_schedule_summary_use_case, get_token
 
 schedules_router = APIRouter(
     prefix="/schedules",
     tags=["Schedules"],
+    dependencies=[
+        Depends(get_token)
+    ]
 )
 
 @schedules_router.post('/', summary='Route for creation of a schedule.')

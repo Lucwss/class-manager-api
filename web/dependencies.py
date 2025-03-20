@@ -1,6 +1,6 @@
 from typing import Annotated
 from fastapi import Depends
-
+from fastapi.security import OAuth2PasswordBearer
 from adapters.libs.bcrypt import BcryptAdapter
 from adapters.repositories.lecturer_repository import LecturerRepository
 from adapters.repositories.schedule_repository import ScheduleRepository
@@ -56,6 +56,15 @@ def jwt_encoder() -> BcryptAdapter:
     """
 
     return BcryptAdapter()
+
+def get_token(
+    token: Annotated[str, Depends(OAuth2PasswordBearer(tokenUrl="api/v1/auth/sign-in/"))],
+) -> str:
+    """
+    function that injects the dependencies for token
+    """
+
+    return token
 
 def create_student_use_case(
         repository: Annotated[StudentRepository, Depends(student_repository)],

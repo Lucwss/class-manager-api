@@ -1,6 +1,6 @@
 services:
   class-manager-api:
-    image: class-manager-api:1.0.0-development
+    image: lucwss/class-manager-api:1.0.0-development
     container_name: class-manager-api
     env_file:
       - ../../.env.development

@@ -28,7 +28,7 @@ class CreateLecturerUseCase(UseCase):
 
             inserted_lecturer: LecturerOutput = await self.repository.create(lecturer_input)
             inserted_lecturer = json.loads(inserted_lecturer.model_dump_json())
-            return HttpHelper.ok(inserted_lecturer)
+            return HttpHelper.created(inserted_lecturer)
 
         except Exception as e:
             traceback.print_exc()

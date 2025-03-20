@@ -31,7 +31,7 @@ class CreateStudentUseCase(UseCase):
 
             inserted_student: StudentOutput = await self.repository.create(student_input)
             inserted_student = json.loads(inserted_student.model_dump_json())
-            return HttpHelper.ok(inserted_student)
+            return HttpHelper.created(inserted_student)
 
         except Exception as e:
             traceback.print_exc()

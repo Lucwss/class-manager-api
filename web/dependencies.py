@@ -3,8 +3,10 @@ from fastapi import Depends
 
 from adapters.libs.bcrypt import BcryptAdapter
 from adapters.repositories.lecturer_repository import LecturerRepository
+from adapters.repositories.schedule_repository import ScheduleRepository
 from adapters.repositories.student_repository import StudentRepository
 from application.usecases.create_lecturer import CreateLecturerUseCase
+from application.usecases.create_schedule import CreateScheduleUseCase
 from application.usecases.create_student import CreateStudentUseCase
 
 
@@ -23,6 +25,13 @@ def lecturer_repository():
     """
 
     return LecturerRepository()
+
+def schedule_repository():
+    """
+    function that injects the dependencies for ScheduleRepository
+    """
+
+    return ScheduleRepository()
 
 def jwt_encoder() -> BcryptAdapter:
     """
@@ -49,3 +58,12 @@ def create_lecturer_use_case(
     """
 
     return CreateLecturerUseCase(repository)
+
+def create_schedule_use_case(
+        repository: Annotated[ScheduleRepository, Depends(schedule_repository)],
+) -> CreateScheduleUseCase:
+    """
+    function that injects the dependencies for CreateScheduleUseCase
+    """
+
+    return CreateScheduleUseCase(repository)

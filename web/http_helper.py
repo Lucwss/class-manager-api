@@ -92,3 +92,13 @@ class HttpHelper:
         """
 
         return HttpResponse(status_code=200, payload=data)
+
+    @staticmethod
+    def created(data: Any):
+        """
+        This method treats a successful created response from server
+        :param data: --> Content to be shown as a success response.
+        :return: HttpResponse object with status_code and payload with the reason of error.
+        """
+
+        return HttpResponse(status_code=201, payload=data)

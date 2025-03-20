@@ -20,7 +20,14 @@ class LecturerRepository(ILecturerRepository):
         pass
 
     async def find_by_email(self, email: str) -> LecturerOutput | None:
-        pass
+        lecturers: AgnosticCollection = MongoDatabase.db.get_collection("lecturers")
+
+        lecturer = await lecturers.find_one({"email": email})
+
+        if not lecturer:
+            return None
+
+        return LecturerOutput(**lecturer)
 
     async def create(self, lecturer_input: LecturerInput) -> LecturerOutput | None:
         lecturers: AgnosticCollection = MongoDatabase.db.get_collection("lecturers")

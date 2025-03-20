@@ -14,7 +14,6 @@ class StudentInput(BaseModel):
     university_degree: str = Field(max_length=100, min_length=5)
     period: str = Field(max_length=100, min_length=5)
     email: EmailStr
-    password: str = Field(max_length=100, min_length=6)
     enrolment: str = Field(max_length=100, min_length=6)
     role: str = Field(default=Role.student)
 

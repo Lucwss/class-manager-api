@@ -50,19 +50,19 @@ class IStudentRepository(ABC):
         raise NotImplemented()
 
     @abstractmethod
-    async def delete_by_id(self, user_id: str):
+    async def delete_by_id(self, student_id: str):
         """
         This abstract method is responsible for deleting the user on the database and return it information.
-        :param user_id:
+        :param student_id:
         :return: a role information
         """
         raise NotImplemented()
 
     @abstractmethod
-    async def find_by_id(self, user_id: str):
+    async def find_by_id(self, student_id: str):
         """
         This abstract method is responsible for finding the user on the database and return it information.
-        :param user_id:
+        :param student_id:
         :return: a role information
         """
         raise NotImplemented()

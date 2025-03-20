@@ -26,8 +26,11 @@ class CreateStudentUseCase(UseCase):
         :return: user information
         """
         try:
-            hashed_password = self.encoder.get_password_hash(student_input.password)
-            student_input.password = hashed_password
+
+            student = await self.repository.find_by_email(str(student_input.email))
+
+            if student:
+                return HttpHelper.bad_request(Exception("Student already exists."))
 
             inserted_student: StudentOutput = await self.repository.create(student_input)
             inserted_student = json.loads(inserted_student.model_dump_json())

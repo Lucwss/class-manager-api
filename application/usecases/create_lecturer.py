@@ -26,6 +26,11 @@ class CreateLecturerUseCase(UseCase):
         """
         try:
 
+            lecturer = await self.repository.find_by_email(str(lecturer_input.email))
+
+            if lecturer:
+                return HttpHelper.bad_request(Exception("Lecturer already exists."))
+
             inserted_lecturer: LecturerOutput = await self.repository.create(lecturer_input)
             inserted_lecturer = json.loads(inserted_lecturer.model_dump_json())
             return HttpHelper.created(inserted_lecturer)

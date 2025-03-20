@@ -53,5 +53,12 @@ class LecturerRepository(ILecturerRepository):
     async def delete_by_id(self, user_id: str):
         pass
 
-    async def find_by_id(self, user_id: str):
-        pass
+    async def find_by_id(self, lecturer_id: str):
+        lecturers: AgnosticCollection = MongoDatabase.db.get_collection("lecturers")
+
+        lecturer = await lecturers.find_one({"_id": ObjectId(lecturer_id)})
+
+        if not lecturer:
+            return None
+
+        return LecturerOutput(**lecturer)

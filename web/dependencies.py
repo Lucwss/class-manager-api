@@ -60,12 +60,15 @@ def create_lecturer_use_case(
 
 def create_schedule_use_case(
         repository: Annotated[ScheduleRepository, Depends(schedule_repository)],
+        student_repo: Annotated[StudentRepository, Depends(student_repository)],
+        lecturer_repo: Annotated[LecturerRepository, Depends(lecturer_repository)],
+
 ) -> CreateScheduleUseCase:
     """
     function that injects the dependencies for CreateScheduleUseCase
     """
 
-    return CreateScheduleUseCase(repository)
+    return CreateScheduleUseCase(repository, student_repo, lecturer_repo)
 
 def get_schedule_summary_use_case(
         repository: Annotated[ScheduleRepository, Depends(schedule_repository)],
